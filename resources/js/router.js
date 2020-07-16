@@ -6,6 +6,7 @@ import Login from './components/Login'
 import AboutUs from './components/AboutUs'
 import Covid from './components/Covid'
 import Survey from './components/Survey'
+import Dashboard from './components/Dashboard'
 
 
 Vue.use(VueRouter);
@@ -18,6 +19,7 @@ export default new VueRouter({
         { path: '/about-us', component: AboutUs },
         { path: '/covid', component: Covid },
         { path: '/survey', component: Survey },
+        { path: '/dashboard', component: Dashboard },
     ],
     mode: 'history'
 });
