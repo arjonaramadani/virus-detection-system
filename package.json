@@ -27,6 +27,9 @@
     "dependencies": {
         "bootstrap-vue": "^2.14.0",
         "countup.js": "^2.0.5",
-        "vue-countup-v2": "^4.0.0"
+        "survey-vue": "^1.7.20",
+        "vue-countup-v2": "^4.0.0",
+        "vue-form-wizard": "^0.8.4",
+        "vuelidate": "^0.7.5"
     }
 }
