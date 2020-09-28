@@ -26,3 +26,5 @@ Route::group(['middleware' => 'auth:api'], function () {
 
 Route::post('/login', 'AuthController@login');
 Route::post('/register', 'AuthController@register');
+
+Route::get('/questions', 'QuestionController@index');

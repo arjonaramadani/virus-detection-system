@@ -65,6 +65,14 @@
   </div>
 </div>
 
+<div class="text-center">
+  <b-button variant="primary" class="bg-info border-none">
+        <router-link to="/survey" class="text-white text-decoration-none">
+        Ploteso Pyetesorin
+        </router-link>
+        </b-button>
+</div>
+
 <div class="container p-5">
      <b-card title="" body-class="text-center">
 
@@ -76,26 +84,7 @@
   </b-card>
 </div>
 
-    <!-- <b-card-group deck>
-      <b-card
-        border-variant="primary"
-        header="Simptomat"
-        header-bg-variant="primary"
-        header-text-variant="white"
-        align="center"
-      >
-        <b-card-text>Simptomat më të zakonshme të Koronavirusit janë ethet, lodhja dhe kolla e thatë. Disa pacientë mund të kenë edhe dhimbje fyti, zënie të hundës, rrjedhje hundësh ose barkqitje.
-
-</b-card-text>
-      </b-card>
-    </b-card-group> -->
 </div>
-
-<!-- <Carousel/> -->
-
-<!-- <Card/> -->
-
-
 
 </div>
 </template>
