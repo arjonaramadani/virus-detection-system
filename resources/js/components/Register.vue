@@ -53,6 +53,14 @@
         ></b-form-input>
       </b-form-group>
 
+      <p v-if="errors.length">
+      <b>Please correct the following error(s):</b>
+      <ul>
+        <li v-for="error in errors" :key="error.id">{{ error }}</li>
+      </ul>
+      </p>
+
+
       <b-button type="submit" variant="primary">Submit</b-button>
       <b-button type="reset" variant="danger">Reset</b-button>
     </b-form>
@@ -70,25 +78,46 @@ import Navbar from './Navbar';
         },
     data() {
       return {
+        errors: [],
         form: {
-          email: '',
-          name: '',
-          password: '',
-          confirmPassword: ''
+          email: null,
+          name: null,
+          password: null,
+          confirmPassword: null,
         },
       }
     },
     methods: {
       onSubmit(evt) {
+        if (this.form.password === this.form.password_confirmation) {
+        this.errors.push('Fjalekalimet duhet te jene te njejta.');
+      } else {
+        this.errors = [];
+
         evt.preventDefault()
-        alert(JSON.stringify(this.form))
+         axios
+                .post(`api/register`, {
+                name: this.form.name,
+                email: this.form.email,
+                password: this.form.password,
+                password_confirmation: this.form.password_confirmation
+                })
+                .then(response => {
+                const token = response.data.access_token;
+                localStorage.setItem("access_token", token);
+                this.$router.push('/login');
+                })
+                .catch(error => {
+                console.log(error);
+                });
+      }
       },
       onReset(evt) {
         evt.preventDefault()
-        this.form.email = ''
-        this.form.name = ''
-        this.form.password = ''
-        this.form.confirmPassword = ''
+        this.form.email = null
+        this.form.name = null
+        this.form.password = null
+        this.form.confirmPassword = null
       }
     }
   }

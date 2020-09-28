@@ -1,22 +1,37 @@
 <template>
   <div>
-    <b-button v-b-toggle.sidebar-1>
     
-    <svg class="bi bi-chevron-right" width="32" height="32" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-    <path fill-rule="evenodd" d="M6.646 3.646a.5.5 0 01.708 0l6 6a.5.5 0 010 .708l-6 6a.5.5 0 01-.708-.708L12.293 10 6.646 4.354a.5.5 0 010-.708z"/>
-    </svg>
+<div class="wrapper">
+        <div class="sidebar" data-image="../assets/img/sidebar-5.jpg">
+            <!--
+        Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
 
-    </b-button>
-    <b-sidebar id="sidebar-1" title="Dashboard" shadow>
+        Tip 2: you can also add an image using data-image tag
+    --><div>
+    <!-- <b-button v-b-toggle.sidebar-1>Toggle Sidebar</b-button> -->
+    <b-sidebar id="sidebar-1" v-b-toggle title="Sidebar" shadow>
       <div class="px-3 py-2">
-        <hr>
-
+        <p>
+          Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
+          in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
+        </p>
+        <b-img src="https://picsum.photos/500/500/?image=54" fluid thumbnail></b-img>
       </div>
     </b-sidebar>
   </div>
+            
+        </div>
+    </div>
+
+
+
+
+
+
+
+  </div>
 </template>
   
-</template>
 
 <script>
 export default {
@@ -24,6 +39,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+  div#sidebar-1 {
+    display: block !important;
+  }
 </style>

@@ -22,15 +22,21 @@
 
     <b-card-group deck>
       <b-card header="Raste të konfirmuara" class="text-center font-weight-bold">
-        <b-card-text>5237</b-card-text>
+        <b-card-text class="display-4">
+          <ICountUp :endVal="cases"/>
+          </b-card-text>
       </b-card>
 
      <b-card header="Raste të shëruara" class="text-center font-weight-bold">
-        <b-card-text>2462</b-card-text>
+        <b-card-text class="display-4">
+          <ICountUp :endVal="recoveries"/>
+        </b-card-text>
       </b-card>
 
       <b-card header="Vdekje" class="text-center font-weight-bold">
-        <b-card-text>112</b-card-text>
+        <b-card-text class="display-4">
+          <ICountUp :endVal="deaths"/>
+        </b-card-text>
       </b-card>
     </b-card-group>
 </div>
@@ -98,15 +104,42 @@
 import Navbar from './Navbar';
 import Carousel from './Carousel';
 import Card from './Card';
+import ICountUp from 'vue-countup-v2';
+
 
     export default {
       components : {
             Navbar,
             Carousel,
-            Card
+            Card,
+            ICountUp
+        },
+        data(){
+          return {
+            cases: 0,
+            deaths:0,
+            recoveries:0
+          }
         },
         mounted() {
             console.log('Component mounted.')
+        },
+        created() {
+          this.getData()
+
+        },
+        methods: {
+          getData() {
+             axios.get('https://covidks.s3.amazonaws.com/data.json')
+                .then(response=>{
+                  console.log(response.data.cases)
+                  this.cases = parseInt(response.data.cases);
+                  this.deaths = parseInt(response.data.deaths);
+                  this.recoveries = parseInt(response.data.recoveries);
+                }).catch((error) => {
+                    
+                }) 
+          }
         }
     }
 </script>
