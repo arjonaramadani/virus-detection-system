@@ -2162,9 +2162,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -2335,6 +2332,11 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Navbar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Navbar */ "./resources/js/components/Navbar.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
 //
 //
 //
@@ -2371,6 +2373,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     Navbar: _Navbar__WEBPACK_IMPORTED_MODULE_0__["default"]
@@ -2378,16 +2381,30 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       form: {
-        email: '',
-        password: ''
+        email: "",
+        password: ""
       },
-      methods: {
-        onSubmit: function onSubmit() {
-          console.log(this.form);
-          alert(JSON.stringify(this.form));
-        }
-      }
+      errors: []
     };
+  },
+  methods: {
+    onSubmit: function onSubmit(evt) {
+      var _this = this;
+
+      evt.preventDefault();
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("api/login", {
+        email: this.form.email,
+        password: this.form.password
+      }).then(function (response) {
+        var token = response.data.access_token;
+        localStorage.setItem("access_token", token);
+
+        _this.$router.push("/dashboard");
+      })["catch"](function (error) {
+        // console.log(error);
+        _this.errors = error.response.data.errors; // console.log(this.errors);
+      });
+    }
   }
 });
 
@@ -2403,14 +2420,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Navbar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Navbar */ "./resources/js/components/Navbar.vue");
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -2495,9 +2504,10 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       if (this.form.password === this.form.password_confirmation) {
-        this.errors.push('Fjalekalimet duhet te jene te njejta.');
+        this.errors.push("Fjalekalimet duhet te jene te njejta.");
       } else {
-        this.errors = [];
+        this.errors = []; // console.log(`${this.form.name}`);
+
         evt.preventDefault();
         axios.post("api/register", {
           name: this.form.name,
@@ -2508,9 +2518,9 @@ __webpack_require__.r(__webpack_exports__);
           var token = response.data.access_token;
           localStorage.setItem("access_token", token);
 
-          _this.$router.push('/login');
+          _this.$router.push("/login");
         })["catch"](function (error) {
-          console.log(error);
+          _this.errors = error.response.data.errors; // console.log(this.errors);
         });
       }
     },
@@ -2520,6 +2530,7 @@ __webpack_require__.r(__webpack_exports__);
       this.form.name = null;
       this.form.password = null;
       this.form.confirmPassword = null;
+      this.errors = [];
     }
   }
 });
@@ -48402,7 +48413,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\ndiv#sidebar-1[data-v-040e2ab9] {\n  display: block !important;\n}\n", ""]);
+exports.push([module.i, "\ndiv#sidebar-1[data-v-040e2ab9] {\r\n  display: block !important;\n}\r\n", ""]);
 
 // exports
 
@@ -81235,7 +81246,7 @@ var render = function() {
                     [
                       _c("p", [
                         _vm._v(
-                          "\n          Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis\n          in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.\n        "
+                          "\n              Cras mattis consectetur purus sit amet fermentum. Cras justo\n              odio, dapibus ac facilisis in, egestas eget quam. Morbi leo\n              risus, porta ac consectetur ac, vestibulum at eros.\n            "
                         )
                       ]),
                       _vm._v(" "),
@@ -82004,7 +82015,7 @@ var render = function() {
         "div",
         { staticClass: "container p-2" },
         [
-          _c("h2", [_vm._v("Login ")]),
+          _c("h2", [_vm._v("Login")]),
           _vm._v(" "),
           _c(
             "b-form",
@@ -82031,7 +82042,6 @@ var render = function() {
                     attrs: {
                       id: "input-1",
                       type: "email",
-                      required: "",
                       placeholder: "Enter email"
                     },
                     model: {
@@ -82057,7 +82067,7 @@ var render = function() {
                 },
                 [
                   _c("b-form-input", {
-                    attrs: { id: "input-1", type: "password", required: "" },
+                    attrs: { id: "input-2", type: "password" },
                     model: {
                       value: _vm.form.password,
                       callback: function($$v) {
@@ -82068,6 +82078,32 @@ var render = function() {
                   })
                 ],
                 1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "py-4" },
+                _vm._l(_vm.errors, function(error, key) {
+                  return _c(
+                    "div",
+                    { key: key.id },
+                    [
+                      _c("span", { staticClass: "text-red" }, [
+                        _vm._v(_vm._s(key) + ":")
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(error, function(err, key) {
+                        return _c("div", { key: key.id }, [
+                          _c("span", { staticClass: "text-red" }, [
+                            _vm._v(_vm._s(err))
+                          ])
+                        ])
+                      })
+                    ],
+                    2
+                  )
+                }),
+                0
               ),
               _vm._v(" "),
               _c(
@@ -82254,7 +82290,15 @@ var render = function() {
           _vm._v(" "),
           _c(
             "b-form",
-            { on: { submit: _vm.onSubmit, reset: _vm.onReset } },
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.onSubmit($event)
+                },
+                reset: _vm.onReset
+              }
+            },
             [
               _c(
                 "b-form-group",
@@ -82267,11 +82311,7 @@ var render = function() {
                 },
                 [
                   _c("b-form-input", {
-                    attrs: {
-                      id: "input-2",
-                      required: "",
-                      placeholder: "Enter name"
-                    },
+                    attrs: { id: "input-1", placeholder: "Enter name" },
                     model: {
                       value: _vm.form.name,
                       callback: function($$v) {
@@ -82296,9 +82336,8 @@ var render = function() {
                 [
                   _c("b-form-input", {
                     attrs: {
-                      id: "input-1",
+                      id: "input-2",
                       type: "email",
-                      required: "",
                       placeholder: "Enter email"
                     },
                     model: {
@@ -82324,7 +82363,7 @@ var render = function() {
                 },
                 [
                   _c("b-form-input", {
-                    attrs: { id: "input-1", type: "password", required: "" },
+                    attrs: { id: "input-3", type: "password" },
                     model: {
                       value: _vm.form.password,
                       callback: function($$v) {
@@ -82348,7 +82387,7 @@ var render = function() {
                 },
                 [
                   _c("b-form-input", {
-                    attrs: { id: "input-1", type: "password", required: "" },
+                    attrs: { id: "input-4", type: "password" },
                     model: {
                       value: _vm.form.confirmPassword,
                       callback: function($$v) {
@@ -82361,21 +82400,31 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
-              _vm.errors.length
-                ? _c("p", [
-                    _c("b", [_vm._v("Please correct the following error(s):")]),
-                    _vm._v(" "),
-                    _c(
-                      "ul",
-                      _vm._l(_vm.errors, function(error) {
-                        return _c("li", { key: error.id }, [
-                          _vm._v(_vm._s(error))
+              _c(
+                "div",
+                { staticClass: "py-4" },
+                _vm._l(_vm.errors, function(error, key) {
+                  return _c(
+                    "div",
+                    { key: key.id },
+                    [
+                      _c("span", { staticClass: "text-red" }, [
+                        _vm._v(_vm._s(key) + ":")
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(error, function(err, key) {
+                        return _c("div", { key: key.id }, [
+                          _c("span", { staticClass: "text-red" }, [
+                            _vm._v(_vm._s(err))
+                          ])
                         ])
-                      }),
-                      0
-                    )
-                  ])
-                : _vm._e(),
+                      })
+                    ],
+                    2
+                  )
+                }),
+                0
+              ),
               _vm._v(" "),
               _c(
                 "b-button",
