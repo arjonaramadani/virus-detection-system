@@ -20,13 +20,15 @@ Route::group(['middleware' => 'auth:api'], function () {
         return $request->user();
     });
   
+    Route::post('/survey', 'SurveyController@store');
+    
     Route::post('/logout', 'AuthController@logout');
     Route::post('/questions', 'QuestionController@store');
     Route::put('/question/{id}', 'QuestionController@update');
     Route::get('/question/{id}', 'QuestionController@show');
     Route::delete('/question/{id}', 'QuestionController@destroy');
-    Route::get('/surveys', 'SurveyController@index');
 });
+Route::get('/surveys', 'SurveyController@index');
 
 Route::post('/login', 'AuthController@login');
 Route::post('/register', 'AuthController@register');

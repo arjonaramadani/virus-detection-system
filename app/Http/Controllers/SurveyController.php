@@ -18,6 +18,7 @@ class SurveyController extends Controller
         
         return $surveys->map(function ($s) {
             return [
+                'id' => $s->id,
                 'respondent' => $s->respondent->name,
                 'checked_by' => $s->checkedBy->name,
                 'notes' => $s->notes,
@@ -33,9 +34,17 @@ class SurveyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($label)
+    public function show($id)
     {
+        $survey = Survey::find($id);
 
+        return [
+            'id' => $survey->id,
+            'respondent' => $survey->respondent->name,
+            'checked_by' => $survey->checkedBy->name,
+            'notes' => $survey->notes,
+            'created_at' => $survey->created_at->toCookieString()
+        ];
     }
 
     /**
@@ -46,6 +55,7 @@ class SurveyController extends Controller
      */
     public function store(Request $request)
     {
+        return $request;
 
     }
 

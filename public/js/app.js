@@ -3327,7 +3327,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -3338,13 +3337,7 @@ __webpack_require__.r(__webpack_exports__);
       finished: false,
       name: "",
       phone: "",
-      questions: [{
-        id: 1,
-        content: "A keni temperature?"
-      }, {
-        id: 2,
-        content: "Si jeni?"
-      }],
+      questions: [],
       answers: [],
       question: {
         question_1: ""
@@ -3364,7 +3357,8 @@ __webpack_require__.r(__webpack_exports__);
       required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["required"]
     }
   },
-  created: function created() {// this.getQuestions();
+  created: function created() {
+    this.getQuestions();
   },
   methods: {
     next: function next() {
@@ -3382,8 +3376,19 @@ __webpack_require__.r(__webpack_exports__);
     },
     onComplete: function onComplete() {
       this.finished = true;
-      console.log("".concat(this.name, " ").concat(this.phone));
-      console.log("".concat(this.question.question_1));
+      var data = {
+        name: this.name,
+        phone: this.phone,
+        answers: this.answers
+      };
+      axios__WEBPACK_IMPORTED_MODULE_3___default.a.defaults.headers.common["Authorization"] = "Bearer " + localStorage.getItem("access_token");
+      axios__WEBPACK_IMPORTED_MODULE_3___default.a.post("/api/survey", {
+        data: data
+      }).then(function () {// console.log(response);
+        // this.$router.push("/");
+      })["catch"](function (error) {
+        return console.log(error);
+      });
     },
     getQuestions: function getQuestions() {
       var _this2 = this;
@@ -3402,9 +3407,10 @@ __webpack_require__.r(__webpack_exports__);
       var index = this.answers.map(function (e) {
         return e.id;
       }).indexOf(id);
+      console.log(index);
 
       if (index !== -1) {
-        this.answers.splice(index);
+        this.answers.splice(index, 1);
       } // console.log(index);
 
 
@@ -84168,7 +84174,7 @@ var render = function() {
                                   "b-form-radio",
                                   {
                                     attrs: {
-                                      name: "question-one",
+                                      name: "question" + question.id,
                                       value: "PO"
                                     },
                                     on: {
@@ -84184,7 +84190,7 @@ var render = function() {
                                   "b-form-radio",
                                   {
                                     attrs: {
-                                      name: "question-one",
+                                      name: "question" + question.id,
                                       value: "JO"
                                     },
                                     on: {
@@ -84194,11 +84200,6 @@ var render = function() {
                                     }
                                   },
                                   [_vm._v("JO")]
-                                ),
-                                _vm._v(
-                                  "\n              " +
-                                    _vm._s(_vm.answers) +
-                                    "\n            "
                                 )
                               ],
                               1
@@ -103038,11 +103039,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Dashboard__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/Dashboard */ "./resources/js/components/Dashboard.vue");
 /* harmony import */ var _components_Questions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/Questions */ "./resources/js/components/Questions.vue");
 /* harmony import */ var _components_Question__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/Question */ "./resources/js/components/Question.vue");
-<<<<<<< HEAD
 /* harmony import */ var _components_Logout__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/Logout */ "./resources/js/components/Logout.vue");
-=======
-/* harmony import */ var _components_AddQuestion__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/AddQuestion */ "./resources/js/components/AddQuestion.vue");
->>>>>>> 458b2897fb252fcfc51f4e5faa59c8ce84338845
+/* harmony import */ var _components_AddQuestion__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/AddQuestion */ "./resources/js/components/AddQuestion.vue");
+
 
 
 
@@ -103085,16 +103084,14 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     path: "/question/:id",
     component: _components_Question__WEBPACK_IMPORTED_MODULE_10__["default"]
   }, {
-<<<<<<< HEAD
     path: '/logout',
     component: _components_Logout__WEBPACK_IMPORTED_MODULE_11__["default"],
     meta: {
       requiresAuth: true
     }
-=======
+  }, {
     path: "/add-question",
-    component: _components_AddQuestion__WEBPACK_IMPORTED_MODULE_11__["default"]
->>>>>>> 458b2897fb252fcfc51f4e5faa59c8ce84338845
+    component: _components_AddQuestion__WEBPACK_IMPORTED_MODULE_12__["default"]
   }],
   mode: "history"
 }));

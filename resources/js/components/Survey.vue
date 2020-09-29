@@ -62,17 +62,16 @@
 
                 <b-form-radio
                   @change="addAnswer(question.id, 'PO')"
-                  name="question-one"
+                  :name="'question' + question.id"
                   value="PO"
                   >PO</b-form-radio
                 >
                 <b-form-radio
                   @change="addAnswer(question.id, 'JO')"
-                  name="question-one"
+                  :name="'question' + question.id"
                   value="JO"
                   >JO</b-form-radio
                 >
-                {{ answers }}
               </div>
             </b-form-group>
           </tab-content>
@@ -410,10 +409,7 @@ export default {
       finished: false,
       name: "",
       phone: "",
-      questions: [
-        { id: 1, content: "A keni temperature?" },
-        { id: 2, content: "Si jeni?" },
-      ],
+      questions: [],
       answers: [],
       question: {
         question_1: "",
@@ -434,7 +430,7 @@ export default {
     },
   },
   created() {
-    // this.getQuestions();
+    this.getQuestions();
   },
   methods: {
     next() {
@@ -449,8 +445,24 @@ export default {
     },
     onComplete() {
       this.finished = true;
-      console.log(`${this.name} ${this.phone}`);
-      console.log(`${this.question.question_1}`);
+      let data = {
+        name:this.name,
+        phone:this.phone,
+        answers:this.answers
+      }
+
+       axios.defaults.headers.common["Authorization"] =
+        "Bearer " + localStorage.getItem("access_token");
+
+      axios
+        .post("/api/survey", {
+          data: data,
+        })
+        .then(() => {
+          // console.log(response);
+          // this.$router.push("/");
+        })
+        .catch((error) => console.log(error));
     },
     getQuestions() {
       axios.get("/api/questions").then((response) => {
@@ -471,8 +483,9 @@ export default {
           return e.id;
         })
         .indexOf(id);
+        console.log(index)
       if (index !== -1) {
-        this.answers.splice(index);
+        this.answers.splice(index,1);
       }
       // console.log(index);
       var obj = {
