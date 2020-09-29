@@ -18,6 +18,7 @@ class QuestionController extends Controller
 
         return $questions->map(function ($q) {
             return [
+                'id' => $q->id,
                 'content' => $q->content,
                 'created_by' => $q->createdBy->name
             ];
@@ -33,6 +34,14 @@ class QuestionController extends Controller
      */
     public function show($label)
     {
+        $question = Question::find($id);
+
+        return [
+            'id' => $question->id,
+            'content' => $question->content,
+            'created_by' => $question->createdBy->name
+
+        ];
 
     }
 
@@ -62,7 +71,14 @@ class QuestionController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $question = Question::findOrFail($id);
 
+        $question->update([
+            'content' => $request->content,
+            'updated_by' => $request->user()->id
+        ]);
+
+        return $question;
     }
 
     /**
