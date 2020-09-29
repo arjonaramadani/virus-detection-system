@@ -44,7 +44,13 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
+        $question = Question::create([
+            'content' => $request->content,
+            'created_by' => $request->user()->id,
+            'created_at' => now(),
+        ]);
 
+        return $question;
     }
 
     /**
@@ -67,6 +73,10 @@ class QuestionController extends Controller
      */
     public function destroy($id)
     {
+        $question = Question::findOrFail($id);
         
+        $question->delete();
+
+        return "Deleted successfully";
     }
 }

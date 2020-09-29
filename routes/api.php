@@ -28,3 +28,4 @@ Route::post('/login', 'AuthController@login');
 Route::post('/register', 'AuthController@register');
 
 Route::get('/questions', 'QuestionController@index');
+Route::get('/surveys', 'SurveyController@index');

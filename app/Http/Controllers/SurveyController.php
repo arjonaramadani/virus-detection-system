@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Survey;
 use Illuminate\Http\Request;
 
 class SurveyController extends Controller
@@ -13,6 +14,16 @@ class SurveyController extends Controller
      */
     public function index()
     {
+        $surveys = Survey::orderBy('created_at','desc')->get();
+        
+        return $surveys->map(function ($s) {
+            return [
+                'respondent' => $s->respondent->name,
+                'checked_by' => $s->checkedBy->name,
+                'notes' => $s->notes,
+                'created_at' => $s->created_at->toCookieString()
+            ];
+        });
 
     }
 
