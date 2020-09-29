@@ -2,6 +2,7 @@
   <div>
     <Navbar />
     <div class="container py-5">
+      <button class="btn btn-primary my-4" @click="addQuestion">Add</button>
       <b-table
         selectable
         striped
@@ -10,10 +11,10 @@
         @row-selected="onRowSelected"
         :items="items"
       ></b-table>
-      <p>
+      <!-- <p>
         Selected Rows:<br />
         {{ selected[0] }}
-      </p>
+      </p> -->
     </div>
   </div>
 </template>
@@ -55,6 +56,9 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+    },
+    addQuestion() {
+      this.$router.push("/add-question");
     },
   },
 };

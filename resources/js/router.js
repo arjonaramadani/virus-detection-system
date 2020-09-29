@@ -9,6 +9,7 @@ import Survey from "./components/Survey";
 import Dashboard from "./components/Dashboard";
 import Questions from "./components/Questions";
 import Question from "./components/Question";
+import AddQuestion from "./components/AddQuestion";
 
 Vue.use(VueRouter);
 
@@ -22,7 +23,8 @@ export default new VueRouter({
         { path: "/survey", component: Survey },
         { path: "/dashboard", component: Dashboard },
         { path: "/questions", component: Questions },
-        { path: "/question/:id", component: Question }
+        { path: "/question/:id", component: Question },
+        { path: "/add-question", component: AddQuestion }
     ],
     mode: "history"
 });
