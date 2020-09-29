@@ -44,5 +44,7 @@ class CreateSurveysTable extends Migration
     public function down()
     {
         Schema::dropIfExists('surveys');
+        Schema::dropIfExists('survey_questions');
+
     }
 }

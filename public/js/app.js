@@ -2243,11 +2243,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       // fields: [{ key: "action", label: "Action" }],
       modes: ["single"],
-      items: [// { id: 1, age: 40, first_name: "Dickerson", last_name: "Macdonald" },
-        // { id: 2, age: 21, first_name: "Larsen", last_name: "Shaw" },
-        // { id: 3, age: 89, first_name: "Geneva", last_name: "Wilson" },
-        // { id: 4, age: 38, first_name: "Jami", last_name: "Carney" },
-      ],
+      items: [],
       selected: {},
       selectMode: "single",
       id: 0
@@ -2289,6 +2285,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Navbar__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Navbar */ "./resources/js/components/Navbar.vue");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+//
 //
 //
 //
@@ -82695,29 +82692,33 @@ var render = function() {
       _c("Navbar"),
       _vm._v(" "),
       _c("div", { staticClass: "container p-5" }, [
-        _c("div", [_vm._v("Respondent: " + _vm._s(_vm.survey.respondent))]),
+        _c("div", [_vm._v("I anketuari: " + _vm._s(_vm.survey.respondent))]),
         _vm._v(" "),
-        _c("div", [_vm._v("Checked By: " + _vm._s(_vm.survey.checked_by))]),
+        _c("div", [_vm._v("Kontakti: " + _vm._s(_vm.survey.respondent_phone))]),
         _vm._v(" "),
-        _c("div", [_vm._v("Notes: " + _vm._s(_vm.survey.notes))]),
+        _c("div", [
+          _vm._v("Kontrolluar nga: " + _vm._s(_vm.survey.checked_by))
+        ]),
         _vm._v(" "),
-        _c("div", [_vm._v("Date: " + _vm._s(_vm.survey.created_at))]),
+        _c("div", [_vm._v("Shenime: " + _vm._s(_vm.survey.notes))]),
+        _vm._v(" "),
+        _c("div", [_vm._v("Data: " + _vm._s(_vm.survey.created_at))]),
         _vm._v(" "),
         _c(
           "div",
           { staticClass: "py-1" },
           [
-            _c("p", [_vm._v("Answers:")]),
+            _c("p", [_vm._v("Pergjigjet:")]),
             _vm._v(" "),
             _vm._l(_vm.answers, function(answer) {
               return _c("ul", { key: answer.id }, [
                 _c("li", [
-                  _vm._v("\n          Question:\n          "),
+                  _vm._v("\n          Pyetja:\n          "),
                   _c("span", [_vm._v(_vm._s(answer.question))])
                 ]),
                 _vm._v(" "),
                 _c("li", [
-                  _vm._v("\n          Answer:\n          "),
+                  _vm._v("\n          Pergjigja:\n          "),
                   _c("span", [_vm._v(_vm._s(answer.answer))])
                 ])
               ])
@@ -83587,7 +83588,7 @@ var render = function() {
                 {
                   attrs: {
                     id: "input-group-2",
-                    label: "Your Name:",
+                    label: "Your email:",
                     "label-for": "input-2"
                   }
                 },

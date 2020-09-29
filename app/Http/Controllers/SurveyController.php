@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 
 class SurveyController extends Controller
 {
+
+  
     /**
      * Display a listing of the resource.
      *
@@ -21,10 +23,10 @@ class SurveyController extends Controller
         return $surveys->map(function ($s) {
             return [
                 'id' => $s->id,
-                'respondent' => $s->respondent->name,
-                'checked_by' => $s->checkedBy ? $s->checkedBy->name : null,
-                'notes' => $s->notes,
-                'created_at' => $s->created_at->toCookieString()
+                'iAnketuari' => $s->respondent->name,
+                'kontrolluarNga' => $s->checkedBy ? $s->checkedBy->name : null,
+                'shenime' => $s->notes,
+                'Data' => $s->created_at->toCookieString()
             ];
         });
     }
@@ -42,6 +44,7 @@ class SurveyController extends Controller
         return [
             'id' => $survey->id,
             'respondent' => $survey->respondent->name,
+            'respondent_phone' => $survey->respondent->phone_number,
             'checked_by' => $survey->checkedBy ? $survey->checkedBy->name : null,
             'notes' => $survey->notes,
             'answers' => $survey->answers,
@@ -95,15 +98,5 @@ class SurveyController extends Controller
         $survey->update();
 
         return "Success";
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
     }
 }

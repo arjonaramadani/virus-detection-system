@@ -4,7 +4,7 @@
     <div class="container p-2">
       <h2>Login</h2>
       <b-form @submit.prevent="onSubmit">
-        <b-form-group id="input-group-2" label="Your Name:" label-for="input-2">
+        <b-form-group id="input-group-2" label="Your email:" label-for="input-2">
           <b-form-input
             id="input-1"
             v-model="form.email"

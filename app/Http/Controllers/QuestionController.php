@@ -14,7 +14,7 @@ class QuestionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {   
         $questions = Question::all();
 
         return $questions->map(function ($q) {

@@ -2,20 +2,21 @@
   <div>
     <Navbar />
     <div class="container p-5">
-      <div>Respondent: {{ survey.respondent }}</div>
-      <div>Checked By: {{ survey.checked_by }}</div>
-      <div>Notes: {{ survey.notes }}</div>
-      <div>Date: {{ survey.created_at }}</div>
+      <div>I anketuari: {{ survey.respondent }}</div>
+      <div>Kontakti: {{ survey.respondent_phone }}</div>
+      <div>Kontrolluar nga: {{ survey.checked_by }}</div>
+      <div>Shenime: {{ survey.notes }}</div>
+      <div>Data: {{ survey.created_at }}</div>
 
       <div class="py-1">
-        <p>Answers:</p>
+        <p>Pergjigjet:</p>
         <ul v-for="answer in answers" :key="answer.id">
           <li>
-            Question:
+            Pyetja:
             <span>{{ answer.question }}</span>
           </li>
           <li>
-            Answer:
+            Pergjigja:
             <span>{{ answer.answer }}</span>
           </li>
         </ul>
