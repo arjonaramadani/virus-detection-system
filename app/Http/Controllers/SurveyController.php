@@ -22,7 +22,7 @@ class SurveyController extends Controller
             return [
                 'id' => $s->id,
                 'respondent' => $s->respondent->name,
-                'checked_by' => $s->checkedBy->name,
+                'checked_by' => $s->checkedBy ?? $s->checkedBy->name ?? null,
                 'notes' => $s->notes,
                 'created_at' => $s->created_at->toCookieString()
             ];
@@ -43,7 +43,7 @@ class SurveyController extends Controller
         return [
             'id' => $survey->id,
             'respondent' => $survey->respondent->name,
-            'checked_by' => $survey->checkedBy->name,
+            'checked_by' => $survey->checkedBy ?? $survey->checkedBy->name ?? null,
             'notes' => $survey->notes,
             'answers' => $survey->answers,
             'created_at' => $survey->created_at->toCookieString()
@@ -94,6 +94,12 @@ class SurveyController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $survey = Survey::find($id);
+        $survey->checked_by = $request->user()->id;
+        $survey->notes = $request->notes;
+        $survey->update();
+
+        return "Success";
 
     }
 

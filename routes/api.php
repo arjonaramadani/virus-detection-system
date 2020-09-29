@@ -23,6 +23,7 @@ Route::group(['middleware' => 'auth:api'], function () {
   
     Route::get('/surveys', 'SurveyController@index');
     Route::get('/survey/{id}', 'SurveyController@show');
+    Route::put('/survey/{id}', 'SurveyController@update');
     
     Route::get('/question/{id}', 'QuestionController@show');
     Route::post('/questions', 'QuestionController@store');
