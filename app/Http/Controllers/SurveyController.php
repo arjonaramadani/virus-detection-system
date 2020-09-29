@@ -16,18 +16,17 @@ class SurveyController extends Controller
      */
     public function index()
     {
-        $surveys = Survey::orderBy('created_at','desc')->get();
+        $surveys = Survey::orderBy('created_at', 'desc')->get();
         
         return $surveys->map(function ($s) {
             return [
                 'id' => $s->id,
                 'respondent' => $s->respondent->name,
-                'checked_by' => $s->checkedBy ?? $s->checkedBy->name ?? null,
+                'checked_by' => $s->checkedBy ? $s->checkedBy->name : null,
                 'notes' => $s->notes,
                 'created_at' => $s->created_at->toCookieString()
             ];
         });
-
     }
 
     /**
@@ -43,7 +42,7 @@ class SurveyController extends Controller
         return [
             'id' => $survey->id,
             'respondent' => $survey->respondent->name,
-            'checked_by' => $survey->checkedBy ?? $survey->checkedBy->name ?? null,
+            'checked_by' => $survey->checkedBy ? $survey->checkedBy->name : null,
             'notes' => $survey->notes,
             'answers' => $survey->answers,
             'created_at' => $survey->created_at->toCookieString()
@@ -70,19 +69,15 @@ class SurveyController extends Controller
             'created_at' => now(),
         ]);
 
-        foreach ($request->data['answers'] as $ans)
-        {
+        foreach ($request->data['answers'] as $ans) {
             DB::table('survey_questions')->insert([
                     'survey_id' => $survey->id,
                     'question_id' => $ans['id'],
                     'answer' => $ans['answer']
                 ]);
-
         }
 
         return "success";
-
-
     }
 
     /**
@@ -100,7 +95,6 @@ class SurveyController extends Controller
         $survey->update();
 
         return "Success";
-
     }
 
     /**
@@ -111,6 +105,5 @@ class SurveyController extends Controller
      */
     public function destroy($id)
     {
-        
     }
 }

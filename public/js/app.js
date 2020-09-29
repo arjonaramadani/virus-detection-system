@@ -2318,6 +2318,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2328,7 +2345,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       survey: {},
       id: this.$route.params.id,
-      answers: []
+      answers: [],
+      notes: ""
     };
   },
   created: function created() {
@@ -2343,6 +2361,18 @@ __webpack_require__.r(__webpack_exports__);
         _this.answers = response.data.answers;
         console.log(_this.survey);
         console.log(_this.answers);
+      });
+    },
+    updateNotes: function updateNotes() {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.defaults.headers.common["Authorization"] = "Bearer " + localStorage.getItem("access_token");
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.put("/api/survey/".concat(this.id), {
+        notes: this.notes
+      }).then(function () {
+        _this2.$router.push("/dashboard");
+      })["catch"](function (error) {
+        console.log(error);
       });
     }
   }
@@ -82657,52 +82687,106 @@ var render = function() {
     [
       _c("Navbar"),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "container p-5" },
-        [
-          _c("div", [_vm._v("Respondent: " + _vm._s(_vm.survey.respondent))]),
-          _vm._v(" "),
-          _c("div", [_vm._v("Checked By: " + _vm._s(_vm.survey.checked_by))]),
-          _vm._v(" "),
-          _c("div", [_vm._v("Notes: " + _vm._s(_vm.survey.notes))]),
-          _vm._v(" "),
-          _c("div", [_vm._v("Date: " + _vm._s(_vm.survey.created_at))]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "py-5" },
-            [
-              _c("p", [_vm._v("Answers:")]),
-              _vm._v(" "),
-              _vm._l(_vm.answers, function(answer) {
-                return _c("ul", { key: answer.id }, [
-                  _c("li", [
-                    _vm._v("\n          Question:\n          "),
-                    _c("span", [_vm._v(_vm._s(answer.question))])
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _vm._v("\n          Answer:\n          "),
-                    _c("span", [_vm._v(_vm._s(answer.answer))])
-                  ])
+      _c("div", { staticClass: "container p-5" }, [
+        _c("div", [_vm._v("Respondent: " + _vm._s(_vm.survey.respondent))]),
+        _vm._v(" "),
+        _c("div", [_vm._v("Checked By: " + _vm._s(_vm.survey.checked_by))]),
+        _vm._v(" "),
+        _c("div", [_vm._v("Notes: " + _vm._s(_vm.survey.notes))]),
+        _vm._v(" "),
+        _c("div", [_vm._v("Date: " + _vm._s(_vm.survey.created_at))]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "py-1" },
+          [
+            _c("p", [_vm._v("Answers:")]),
+            _vm._v(" "),
+            _vm._l(_vm.answers, function(answer) {
+              return _c("ul", { key: answer.id }, [
+                _c("li", [
+                  _vm._v("\n          Question:\n          "),
+                  _c("span", [_vm._v(_vm._s(answer.question))])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _vm._v("\n          Answer:\n          "),
+                  _c("span", [_vm._v(_vm._s(answer.answer))])
                 ])
-              })
-            ],
-            2
-          ),
-          _vm._v(" "),
-          _c(
-            "router-link",
-            {
-              staticClass: "btn btn-primary my-5",
-              attrs: { to: "/dashboard" }
-            },
-            [_vm._v("Back")]
-          )
-        ],
-        1
-      )
+              ])
+            })
+          ],
+          2
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          [
+            _c(
+              "router-link",
+              {
+                staticClass: "btn btn-primary my-5",
+                attrs: { to: "/dashboard" }
+              },
+              [_vm._v("Back")]
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "form",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: !_vm.survey.checked_by,
+                expression: "!survey.checked_by"
+              }
+            ]
+          },
+          [
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.notes,
+                  expression: "notes"
+                }
+              ],
+              attrs: {
+                required: "",
+                name: "notes",
+                id: "",
+                cols: "30",
+                rows: "10"
+              },
+              domProps: { value: _vm.notes },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.notes = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("div", [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  on: { click: _vm.updateNotes }
+                },
+                [_vm._v("Check")]
+              )
+            ])
+          ]
+        )
+      ])
     ],
     1
   )
