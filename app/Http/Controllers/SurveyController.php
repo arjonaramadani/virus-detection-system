@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Survey;
+use App\Respondent;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SurveyController extends Controller
 {
@@ -43,6 +45,7 @@ class SurveyController extends Controller
             'respondent' => $survey->respondent->name,
             'checked_by' => $survey->checkedBy->name,
             'notes' => $survey->notes,
+            'answers' => $survey->answers,
             'created_at' => $survey->created_at->toCookieString()
         ];
     }
@@ -55,7 +58,30 @@ class SurveyController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        // return $request->data['name'];
+        $respondent = Respondent::create([
+            'name' => $request->data['name'],
+            'phone_number' => $request->data['phone'],
+            'created_at' => now()
+        ]);
+
+        $survey = Survey::create([
+            'respondent_id' => $respondent->id,
+            'created_at' => now(),
+        ]);
+
+        foreach ($request->data['answers'] as $ans)
+        {
+            DB::table('survey_questions')->insert([
+                    'survey_id' => $survey->id,
+                    'question_id' => $ans['id'],
+                    'answer' => $ans['answer']
+                ]);
+
+        }
+
+        return "success";
+
 
     }
 

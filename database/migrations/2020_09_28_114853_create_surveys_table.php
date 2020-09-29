@@ -17,7 +17,7 @@ class CreateSurveysTable extends Migration
             $table->id();
             $table->unsignedBigInteger('respondent_id');
             $table->unsignedBigInteger('checked_by')->nullable();
-            $table->string('notes');
+            $table->string('notes')->nullable();
 
             $table->foreign('respondent_id')->references('id')->on('respondents')->onDelete('cascade');
             $table->foreign('checked_by')->references('id')->on('users')->onDelete('cascade');

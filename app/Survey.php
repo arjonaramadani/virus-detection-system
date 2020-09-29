@@ -23,4 +23,14 @@ class Survey extends Model
     {
         return $this->belongsToMany('App\Question','survey_questions')->withPivot('answer');
     }
+
+    public function getanswersAttribute($value)
+    {
+        return $this->questions->map(function ($ans) {
+            return [
+                'question' => $ans->content,
+                'answer' => $ans->pivot->answer
+            ];
+        });
+    }
 }
