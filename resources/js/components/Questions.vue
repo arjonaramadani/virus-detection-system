@@ -47,6 +47,9 @@ export default {
       this.$router.push(`/question/${this.id}`);
     },
     getQuestions() {
+      axios.defaults.headers.common["Authorization"] =
+        "Bearer " + localStorage.getItem("access_token");
+        
       axios
         .get("/api/questions")
         .then((response) => {

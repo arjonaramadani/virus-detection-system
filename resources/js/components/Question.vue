@@ -35,6 +35,9 @@ export default {
   },
   methods: {
     getQuestion() {
+      axios.defaults.headers.common["Authorization"] =
+        "Bearer " + localStorage.getItem("access_token");
+      
       axios
         .get(`/api/question/${this.id}`)
         .then((response) => {

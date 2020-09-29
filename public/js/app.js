@@ -2709,6 +2709,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2780,6 +2785,7 @@ __webpack_require__.r(__webpack_exports__);
     getQuestion: function getQuestion() {
       var _this = this;
 
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.defaults.headers.common["Authorization"] = "Bearer " + localStorage.getItem("access_token");
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/question/".concat(this.id)).then(function (response) {
         _this.question = response.data; // console.log(this.question);
       })["catch"](function (error) {
@@ -2870,6 +2876,7 @@ __webpack_require__.r(__webpack_exports__);
     getQuestions: function getQuestions() {
       var _this = this;
 
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.defaults.headers.common["Authorization"] = "Bearer " + localStorage.getItem("access_token");
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/questions").then(function (response) {
         //   console.log(response);
         _this.items = response.data;
@@ -83806,6 +83813,23 @@ var render = function() {
                               attrs: { to: "/dashboard" }
                             },
                             [_vm._v("\n          DASHBOARD\n          ")]
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.isLoggedIn
+                    ? _c(
+                        "b-nav-item",
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "text-white text-decoration-none",
+                              attrs: { to: "/questions" }
+                            },
+                            [_vm._v("\n          QUESTIONS\n          ")]
                           )
                         ],
                         1

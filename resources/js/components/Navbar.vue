@@ -24,7 +24,12 @@
           <router-link to="/dashboard" class="text-white text-decoration-none">
           DASHBOARD
           </router-link>
-        </b-nav-item>       
+        </b-nav-item>    
+        <b-nav-item v-if="isLoggedIn">
+          <router-link to="/questions" class="text-white text-decoration-none">
+          QUESTIONS
+          </router-link>
+        </b-nav-item>    
       </b-navbar-nav>
 
       <b-navbar-nav class="ml-auto">

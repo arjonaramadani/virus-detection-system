@@ -25,6 +25,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/survey/{id}', 'SurveyController@show');
     Route::put('/survey/{id}', 'SurveyController@update');
     
+    Route::get('/questions', 'QuestionController@index');
     Route::get('/question/{id}', 'QuestionController@show');
     Route::post('/questions', 'QuestionController@store');
     Route::put('/question/{id}', 'QuestionController@update');
@@ -36,7 +37,6 @@ Route::get('/survey/{id}', 'SurveyController@show');
 
 Route::post('/login', 'AuthController@login');
 Route::post('/register', 'AuthController@register');
-Route::get('/questions', 'QuestionController@index');
 
 // Route::group(['middleware' => 'auth:api'], function () {
 //     Route::post('/logout', 'AuthController@logout');
