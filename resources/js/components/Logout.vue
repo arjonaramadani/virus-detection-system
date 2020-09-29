@@ -18,19 +18,8 @@ export default {
     },
     methods: {
         logout() {
-             axios.defaults.headers.common["Authorization"] =
-            "Bearer " + localStorage.getItem("access_token");
-            axios
-            .post(`api/logout`)
-            .then(response => {
-                localStorage.removeItem("access_token");
-                console.log(response);
+            localStorage.removeItem("access_token");
                 this.$router.push('/');
-            })
-            .catch(error => {
-                console.log("ERROR");
-            console.log(error);
-            });
         }
     }
 

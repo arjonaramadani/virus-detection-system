@@ -37,8 +37,8 @@
           <template v-slot:button-content>
             <em>User</em>
           </template>
-          <b-dropdown-item href="#">Profile</b-dropdown-item>
-          <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+          <!-- <b-dropdown-item href="#">Profile</b-dropdown-item> -->
+          <b-dropdown-item class="text-decoration-none"><router-link to="/logout">Sign Out</router-link></b-dropdown-item>
         </b-nav-item-dropdown>
 
       </b-navbar-nav>

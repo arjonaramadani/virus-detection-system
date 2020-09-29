@@ -45,4 +45,5 @@ class AuthController extends Controller
 
         return response(['user' => auth()->user(), 'access_token' => $accessToken]);
     }
+
 }

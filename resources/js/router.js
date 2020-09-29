@@ -9,6 +9,7 @@ import Survey from "./components/Survey";
 import Dashboard from "./components/Dashboard";
 import Questions from "./components/Questions";
 import Question from "./components/Question";
+import Logout from './components/Logout'
 
 Vue.use(VueRouter);
 
@@ -22,7 +23,10 @@ export default new VueRouter({
         { path: "/survey", component: Survey },
         { path: "/dashboard", component: Dashboard },
         { path: "/questions", component: Questions },
-        { path: "/question/:id", component: Question }
+        { path: "/question/:id", component: Question },
+        { path: '/logout', component: Logout, meta: {
+            requiresAuth: true,
+        }},
     ],
     mode: "history"
 });
