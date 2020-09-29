@@ -16,7 +16,7 @@
             ref="step1"
             :before-change="next"
           >
-            <div class="container">
+            <div class="container" @on-validate="mergePartialModels">
               <b-form>
                 <b-form-group
                   id="input-group-2"
@@ -56,27 +56,28 @@
             </div>
           </tab-content>
           <tab-content title="Pyetjet" icon="ti-help">
-            <b-form-group>
+            <b-form-group @on-validate="mergePartialModels">
               <div v-for="question in questions" :key="question.id">
                 {{ question.content }}
 
                 <b-form-radio
-                  v-model="question.question_1"
+                  @change="addAnswer(question.id, 'PO')"
                   name="question-one"
                   value="PO"
                   >PO</b-form-radio
                 >
                 <b-form-radio
-                  v-model="question.question_1"
+                  @change="addAnswer(question.id, 'JO')"
                   name="question-one"
                   value="JO"
                   >JO</b-form-radio
                 >
+                {{ answers }}
               </div>
             </b-form-group>
           </tab-content>
           <tab-content title="Perfundimi" icon="ti-check">
-            <div class="text-center">
+            <div class="text-center" @on-validate="mergePartialModels">
               <h4>
                 Faleminderit qe i plotesuat pyetjet e formularit <br />
                 Per te perfunduar, klikoni ne butonin Finish
@@ -409,12 +410,15 @@ export default {
       finished: false,
       name: "",
       phone: "",
-      questions: [],
+      questions: [
+        { id: 1, content: "A keni temperature?" },
+        { id: 2, content: "Si jeni?" },
+      ],
       answers: [],
       question: {
         question_1: "",
-        question_2: "",
       },
+      finalModel: {},
     };
   },
   components: {
@@ -430,7 +434,7 @@ export default {
     },
   },
   created() {
-    this.getQuestions();
+    // this.getQuestions();
   },
   methods: {
     next() {
@@ -445,12 +449,38 @@ export default {
     },
     onComplete() {
       this.finished = true;
+      console.log(`${this.name} ${this.phone}`);
+      console.log(`${this.question.question_1}`);
     },
     getQuestions() {
       axios.get("/api/questions").then((response) => {
         this.questions = response.data;
         // console.log(this.questions[0].content);
       });
+    },
+    mergePartialModels(model, isValid) {
+      if (isValid) {
+        // merging each step model into the final model
+        this.finalModel = Object.assign({}, this.finalModel, model);
+      }
+    },
+
+    addAnswer(id, answer) {
+      var index = this.answers
+        .map(function (e) {
+          return e.id;
+        })
+        .indexOf(id);
+      if (index !== -1) {
+        this.answers.splice(index);
+      }
+      // console.log(index);
+      var obj = {
+        id: id,
+        answer: answer,
+      };
+      this.answers.push(obj);
+      // console.log("TEST");
     },
   },
 };

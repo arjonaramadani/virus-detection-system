@@ -11,6 +11,7 @@
       </b-form-group>
       <b-form-group>Nga: {{ question.created_by }}</b-form-group>
       <b-button type="submit" variant="primary">Update</b-button>
+      <b-button @click="deleteQuestion" class="btn btn-danger">Delete</b-button>
     </b-form>
   </div>
 </template>
@@ -51,6 +52,11 @@ export default {
         .then(() => {
           this.$router.push("/questions");
         });
+    },
+    deleteQuestion() {
+      axios.delete(`/api/question/${this.id}`).then(() => {
+        this.$router.push("/questions");
+      });
     },
   },
 };

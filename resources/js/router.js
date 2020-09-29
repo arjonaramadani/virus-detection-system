@@ -10,6 +10,7 @@ import Dashboard from "./components/Dashboard";
 import Questions from "./components/Questions";
 import Question from "./components/Question";
 import Logout from './components/Logout'
+import AddQuestion from "./components/AddQuestion";
 
 Vue.use(VueRouter);
 
@@ -27,6 +28,7 @@ export default new VueRouter({
         { path: '/logout', component: Logout, meta: {
             requiresAuth: true,
         }},
+        { path: "/add-question", component: AddQuestion }
     ],
     mode: "history"
 });

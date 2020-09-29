@@ -14,19 +14,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
 Route::group(['middleware' => 'auth:api'], function () {
-    Route::get('/user', 'AuthController@user');
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+  
     Route::post('/logout', 'AuthController@logout');
+    Route::post('/questions', 'QuestionController@store');
+    Route::put('/question/{id}', 'QuestionController@update');
+    Route::get('/question/{id}', 'QuestionController@show');
+    Route::delete('/question/{id}', 'QuestionController@destroy');
+    Route::get('/surveys', 'SurveyController@index');
 });
 
 Route::post('/login', 'AuthController@login');
 Route::post('/register', 'AuthController@register');
-
 Route::get('/questions', 'QuestionController@index');
-Route::get('/question/{id}', 'QuestionController@show');
-Route::put('/question/{id}', 'QuestionController@update');
-Route::get('/surveys', 'SurveyController@index');
+
+// Route::group(['middleware' => 'auth:api'], function () {
+//     Route::post('/logout', 'AuthController@logout');
+
+//     Route::post('/questions', 'QuestionController@store');
+//     Route::put('/question/{id}', 'QuestionController@update');
+//     Route::get('/question/{id}', 'QuestionController@show');
+//     Route::delete('/question/{id}', 'QuestionController@destroy');
+//     Route::get('/surveys', 'SurveyController@index');
+// });
