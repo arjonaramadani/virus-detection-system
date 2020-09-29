@@ -29,6 +29,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::delete('/question/{id}', 'QuestionController@destroy');
 });
 Route::get('/surveys', 'SurveyController@index');
+Route::get('/survey/{id}', 'SurveyController@show');
 
 Route::post('/login', 'AuthController@login');
 Route::post('/register', 'AuthController@register');
