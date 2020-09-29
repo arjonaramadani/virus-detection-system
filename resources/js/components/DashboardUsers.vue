@@ -6,6 +6,20 @@
       <div>Checked By: {{ survey.checked_by }}</div>
       <div>Notes: {{ survey.notes }}</div>
       <div>Date: {{ survey.created_at }}</div>
+
+      <div class="py-5">
+        <p>Answers:</p>
+        <ul v-for="answer in answers" :key="answer.id">
+          <li>
+            Question:
+            <span>{{ answer.question }}</span>
+          </li>
+          <li>
+            Answer:
+            <span>{{ answer.answer }}</span>
+          </li>
+        </ul>
+      </div>
       <router-link to="/dashboard" class="btn btn-primary my-5"
         >Back</router-link
       >
@@ -25,6 +39,7 @@ export default {
     return {
       survey: {},
       id: this.$route.params.id,
+      answers: [],
     };
   },
   created() {
@@ -33,8 +48,10 @@ export default {
   methods: {
     getSurvey() {
       axios.get(`/api/survey/${this.id}`).then((response) => {
-        // console.log(response);
         this.survey = response.data;
+        this.answers = response.data.answers;
+        console.log(this.survey);
+        console.log(this.answers);
       });
     },
   },

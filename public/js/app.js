@@ -2304,6 +2304,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2313,7 +2327,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       survey: {},
-      id: this.$route.params.id
+      id: this.$route.params.id,
+      answers: []
     };
   },
   created: function created() {
@@ -2324,8 +2339,10 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/survey/".concat(this.id)).then(function (response) {
-        // console.log(response);
         _this.survey = response.data;
+        _this.answers = response.data.answers;
+        console.log(_this.survey);
+        console.log(_this.answers);
       });
     }
   }
@@ -82651,6 +82668,29 @@ var render = function() {
           _c("div", [_vm._v("Notes: " + _vm._s(_vm.survey.notes))]),
           _vm._v(" "),
           _c("div", [_vm._v("Date: " + _vm._s(_vm.survey.created_at))]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "py-5" },
+            [
+              _c("p", [_vm._v("Answers:")]),
+              _vm._v(" "),
+              _vm._l(_vm.answers, function(answer) {
+                return _c("ul", { key: answer.id }, [
+                  _c("li", [
+                    _vm._v("\n          Question:\n          "),
+                    _c("span", [_vm._v(_vm._s(answer.question))])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [
+                    _vm._v("\n          Answer:\n          "),
+                    _c("span", [_vm._v(_vm._s(answer.answer))])
+                  ])
+                ])
+              })
+            ],
+            2
+          ),
           _vm._v(" "),
           _c(
             "router-link",
