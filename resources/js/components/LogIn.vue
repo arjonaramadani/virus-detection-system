@@ -23,9 +23,11 @@
 
         <div class="py-4">
           <div class="" v-for="(error, key) in errors" :key="key.id">
-            <span class="text-red">{{ key }}:</span>
+            <span class="text-danger text-uppercase">{{ key }}:</span>
             <div v-for="(err, key) in error" :key="key.id">
-              <span class="text-red">{{ err }}</span>
+              <span class="text-danger">
+                <strong>{{ err }}</strong>
+              </span>
             </div>
           </div>
         </div>

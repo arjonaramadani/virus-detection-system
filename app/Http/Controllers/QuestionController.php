@@ -23,7 +23,6 @@ class QuestionController extends Controller
                 'created_by' => $q->createdBy->name
             ];
         });
-
     }
 
     /**
@@ -32,7 +31,7 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($label)
+    public function show($id)
     {
         $question = Question::find($id);
 
@@ -42,7 +41,6 @@ class QuestionController extends Controller
             'created_by' => $question->createdBy->name
 
         ];
-
     }
 
     /**
@@ -75,7 +73,7 @@ class QuestionController extends Controller
 
         $question->update([
             'content' => $request->content,
-            'updated_by' => $request->user()->id
+            'updated_at' => now()
         ]);
 
         return $question;

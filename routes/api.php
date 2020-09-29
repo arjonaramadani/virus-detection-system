@@ -21,11 +21,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/user', 'AuthController@user');
     Route::post('/logout', 'AuthController@logout');
-
 });
 
 Route::post('/login', 'AuthController@login');
 Route::post('/register', 'AuthController@register');
 
 Route::get('/questions', 'QuestionController@index');
+Route::get('/question/{id}', 'QuestionController@show');
+Route::put('/question/{id}', 'QuestionController@update');
 Route::get('/surveys', 'SurveyController@index');
